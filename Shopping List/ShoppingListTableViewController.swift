@@ -11,37 +11,63 @@ import UIKit
 class ShoppingListTableViewController: UITableViewController {
     
     
-    var lists = [List] ()
+    
+    var lists = [ List]()
     
     @IBOutlet var NameLabel: [UITextField]!
-    
-    
-        struct List {
-            var name = String()
-            var price = String()
-           var Ranking = String ()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        navigationItem.title = "Shopping List"
         
-        lists.append (List (name:"iMac", price: "NT72000", Ranking: "numer1"))
-        lists.append (List(name: "Mac Pro",price: "NT46000", Ranking: "numeber2"))
-        lists.append (List(name: "iPad", price: "NT 12000", Ranking: "number3"))
+        lists.append (List (name:"iMac", price: "NT72000", introduction: "iMac is a range of all-in-one Macintosh desktop computers designed", photo: #imageLiteral(resourceName: "imac")))
+       
+        lists.append (List(name: "iPhoneX",price: "NT35000", introduction: "Our vision has always been to create an iPhone that is entirely screen. One so immersive the device itself disappears into the experience.", photo:#imageLiteral(resourceName: "iphoneX")))
+        
+        lists.append (List(name: "iPad", price: "NT 12000", introduction: "An iPad can shoot video, take photos, play music, and perform Internet functions such as web-browsing and emailing. Other functions – games, reference, GPS navigation, social networking, etc.", photo:#imageLiteral(resourceName: "ipad")))
         
         for (i, NameLabel) in NameLabel.enumerated() {
             NameLabel.text = lists[i].name
+            
         }
+        
+    }
+     override  func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+            
+        }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        _ = segue.destination as? itemTableViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            itemTableViewController?.list = lists[indexPath.row]
+        }
+        
     }
 
+
+        struct List {
+            
+            var name = String()
+            var price = String()
+            var introduction = String ()
+            var photo = UIImage ()
+        }
+        
+    }
+
+struct List {
+    
+    var name = String()
+    var price = String()
+    var introduction = String ()
+    var photo = UIImage ()
+    
 }
+  
+
 
 // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
